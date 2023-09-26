@@ -6,6 +6,7 @@ param (
     [switch]$JoinToDomain = $false,
     [switch]$ConfigureClient = $false,
     [string]$DnsServer = "8.8.8.8",
+    [string]$DnsServerAux = "8.8.8.8",
     [string]$ComputerName = "WIN10",
     [switch]$Help = $false
 
@@ -33,7 +34,8 @@ if ($ConfigureClient) {
     # Configure le client pour utiliser le DNS du serveur
 
     $InterfaceIndex = (Get-NetAdapter).InterfaceIndex
-    Set-DnsClientServerAddress -InterfaceIndex $InterfaceIndex -ServerAddresses ($DnsServer)
+    Set-DnsClientServerAddress -InterfaceIndex $InterfaceIndex -ServerAddresses ($DnsServer,$DnsServerAux)
+    Set-DnsClientServerAddress 
     # join domain
     $Credential = Get-Credential
     Add-Computer -DomainName $DomainName -Credential $Credential
