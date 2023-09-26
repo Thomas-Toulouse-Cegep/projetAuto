@@ -1,7 +1,9 @@
+# installer module 
+Install-Module -Name ImportExcel -RequiredVersion 7.8.4
 # Importez le module ImportExcel
 Import-Module ImportExcel
 
-# Importez les données du fichier XLSX
+
 $employes = Import-Excel -Path "c:\Users\thoma\Bureau\projetAuto\projetAuto\Data.xlsx" -WorksheetName "Data"
 
 # Parcourez chaque ligne du XLSX et créez les utilisateurs
@@ -26,6 +28,5 @@ foreach ($employe in $employes) {
         # Définissez les autorisations du dossier partagé ici
   #  }
 
-    # Organisez Active Directory en utilisant des unités d'organisation (OUs) si nécessaire
-    # Vous pouvez créer des OUs pour chaque groupe et déplacer les utilisateurs
+   
 }
