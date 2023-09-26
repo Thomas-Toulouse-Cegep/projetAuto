@@ -9,11 +9,7 @@ param (
 
 
 $env:PATH = $env:PATH + ";C:\Program Files\Oracle\VirtualBox"
-Write-Host "[Recommande] voulez-vous telecharger l'iso du server automatiser? (y/n)"
-if (Read-Host -eq "y") {
-    wget 
-    <# Action to perform if the condition is true #>
-}
+
 if (Test-Path "$vmPath\$vmName") {
     Write-Host "La VM existe deja voulez-vous la supprimer? (y/n)"
     $answer = Read-Host
