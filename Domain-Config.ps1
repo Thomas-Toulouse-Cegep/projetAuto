@@ -2,18 +2,18 @@ param (
     [switch]$CreateDomain = $false,
     [string]$DomainName = "novatech.local",
     [string]$DomainNetbiosName = "NOVATECH",
-    [string]$SafeModeAdminPassword = "MotDePasseAdmin",
+    [string]$SafeModeAdminPassword = "Test1234",
     [switch]$JoinToDomain = $false
 )
 
 if ($CreateDomain) {
     
-    Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+    #Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
     
-    Install-ADDSForest -DomainName $DomainName -DomainNetbiosName $DomainNetbiosName -DomainMode WinThreshold -ForestMode WinThreshold -InstallDns -Force# -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText $SafeModeAdminPassword -Force) -Force
+    Install-ADDSForest -DomainName $DomainName -DomainNetbiosName $DomainNetbiosName -DomainMode WinThreshold -ForestMode WinThreshold -InstallDns -Force # -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText $SafeModeAdminPassword -Force) -Force
     
-    Restart-Computer -Force
+    #Restart-Computer -Force
 }
 if ($JoinToDomain) {
     # Join the Windows 10 machine to the domain
