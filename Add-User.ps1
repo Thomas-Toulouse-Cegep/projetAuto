@@ -16,17 +16,16 @@ foreach ($employe in $employes) {
     Write-Host "Création de l'utilisateur $prenom $nom ($samAccountName) dans le groupe $groupe"
 
     # Créez l'utilisateur
-    #New-ADUser -Name "$prenom $nom" -SamAccountName $samAccountName -UserPrincipalName "$samAccountName@votre-domaine.com" -AccountPassword (ConvertTo-SecureString -AsPlainText $motDePasse -Force) -Enabled $true
+    New-ADUser -Name "$prenom $nom" -SamAccountName $samAccountName -UserPrincipalName "$samAccountName@votre-domaine.com" -AccountPassword (ConvertTo-SecureString -AsPlainText $motDePasse -Force) -Enabled $true
 
     # Ajoutez l'utilisateur au groupe correspondant
-    #Add-ADGroupMember -Identity $groupe -Members $samAccountName
+    Add-ADGroupMember -Identity $groupe -Members $samAccountName
 
     # Créez un dossier partagé pour le groupe s'il n'existe pas déjà
-    #$dossierPartage = "C:\Chemin\vers\dossier\$groupe"
-  #  if (-not (Test-Path -Path $dossierPartage -PathType Container)) {
-      #  New-Item -Path $dossierPartage -ItemType Directory
-        # Définissez les autorisations du dossier partagé ici
-  #  }
-
-   
+    $dossierPartage = "C:\Chemin\vers\dossier\$groupe"
+    if (-not (Test-Path -Path $dossierPartage -PathType Container)) {
+        #New-Item -Path $dossierPartage -ItemType Directory
+        .\Add-Groups.ps1 -Name $groupe
+        #Définissez les autorisations du dossier partagé ici
+    }  
 }
