@@ -6,7 +6,7 @@ param (
     [switch]$JoinToDomain = $false,
     [switch]$ConfigureClient = $false,
     [string]$DnsServer = "127.0.0.1",
-    /[string]$DnsServerAux = "8.8.8.8",
+    [string]$DnsServerAux = "8.8.8.8",
     [string]$ComputerName = "WIN10",
     [switch]$Help = $false
 
@@ -16,7 +16,6 @@ if ($CreateDomain) {
     
     Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
-    
     Install-ADDSForest -DomainName $DomainName -DomainNetbiosName $DomainNetbiosName -DomainMode WinThreshold -ForestMode WinThreshold -InstallDns -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText $SafeModeAdminPassword -Force) -Force
     
     Restart-Computer -Force
