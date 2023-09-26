@@ -1,14 +1,21 @@
 param (
-    [string]$Name
+    [array]$GroupNameList 
 )
 Write-Host($Name)
 
 function Add-Group {
     param (
-        [string]$Name
+        [array]$GroupNameList = {"R&D", "Marketing", "Ventes" ," Techs"}
     )
-    New-ADGroup -Name $Name -GroupScope Global -GroupCategory Security
+
+    foreach ($name in $GroupNameList)
+    {
+        if (Get-ADGroup -Filter {Name -neq $name})
+        {
+            New-ADGroup -Name $name -GroupScope Global -GroupCategory Security
+        }
+    }
 }
 
-Add-Group -Name $Name
+Add-Group -Name $GroupNameList
 

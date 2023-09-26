@@ -1,7 +1,7 @@
 param (
     [switch]$CreateDomain = $false,
     [string]$DomainName = "novatech.local",
-    [string]$DomainNetbiosName = "NOVATECH",
+    [string]$DomainNetbiosName = "NovaTech_Solutions_TTGJAL",
     [string]$SafeModeAdminPassword = "Test1234",
     [switch]$JoinToDomain = $false,
     [switch]$ConfigureClient = $false,
