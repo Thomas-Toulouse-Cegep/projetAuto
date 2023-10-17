@@ -11,7 +11,6 @@ param (
     [switch]$Help = $false
 
 )
-
 if ($CreateDomain) {
     
     #Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
