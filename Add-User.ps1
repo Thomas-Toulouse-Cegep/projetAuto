@@ -13,7 +13,7 @@ foreach ($employe in $employes) {
     $samAccountName = $employe.samAccountName
     $motDePasse = $employe."mot de passe"
     $groupe = $employe.Groupe
-    Write-Host "Creation de l'utilisateur $prenom $nom ($samAccountName) dans le groupe $groupe"
+    Write-Host "Début de creation de l'utilisateur $prenom $nom ($samAccountName) dans le groupe $groupe"
 
     
     try {
@@ -25,11 +25,12 @@ foreach ($employe in $employes) {
     }
 
     try {
-    # Créez unjà dossier partagé pour le groupe s'il n'existe pas dé
+    # Créez un dossier partagé pour le groupe s'il n'existe pas dé
     $dossierPartage = "C:\Chemin\vers\dossier\$groupe"
     if (-not (Test-Path -Path $dossierPartage -PathType Container)) {
         #New-Item -Path $dossierPartage -ItemType Directory
-        C:\Users\Administrateur\Documents\projetAuto\Add-Groups.ps1 $groupe
+        Write-Host "nom du groupe : " $groupe
+        C:\Users\Administrateur\Documents\projetAuto\Add-Groups.ps1 -GroupNameList $groupe
         try {
             Add-ADGroupMember -Identity $groupe -Members $samAccountName
         }
@@ -40,7 +41,6 @@ foreach ($employe in $employes) {
     } 
     catch {
         Write-Host "echec de la creation du dossier partage $groupe"
-    
     }
 }
 

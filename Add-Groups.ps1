@@ -12,9 +12,8 @@ function Add-Group
 
     foreach ($name in $GroupNameList)
     {
-        
         Write-Host "entrer dans le foreach dajout de groupe et le nom du groupe est $name"
-        if (not (Get-ADGroup -Filter {Name -eq $name}))
+        if (Get-ADGroup -Filter {Name -ne $name})
         {
             try{
                 New-ADGroup -Name $name -GroupScope Global -GroupCategory Security
@@ -27,7 +26,7 @@ function Add-Group
     }
 }
 
-Add-Group - $GroupNameList
+Add-Group -GroupNameList $GroupNameList
 
 
 
