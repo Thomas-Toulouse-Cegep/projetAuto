@@ -1,32 +1,26 @@
 param (
-    [array]$GroupNameList
+    [string]$GroupName
 )
-
-Write-Host($Name)
 
 function Add-Group
 {
     param (
-        [array]$GroupNameList
+        [string]$GroupName
     )
 
-    foreach ($name in $GroupNameList)
-    {
-        Write-Host "entrer dans le foreach dajout de groupe et le nom du groupe est $name"
-        if (Get-ADGroup -Filter {Name -ne $name})
+        if (Get-ADGroup -Filter {Name -ne $GroupName})
         {
             try{
-                New-ADGroup -Name $name -GroupScope Global -GroupCategory Security
-                Write-Host "Creation du groupe $name"
+                New-ADGroup -Name $GroupName -GroupScope Global -GroupCategory Security
+                Write-Host "Creation du groupe $GroupName"
             }
             catch {
-                Write-Host "Le groupe $name existe deja"
+                Write-Host "Le groupe $GroupName existe deja"
             }
         }
-    }
 }
 
-Add-Group -GroupNameList $GroupNameList
+Add-Group -GroupName $GroupName
 
 
 
