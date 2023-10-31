@@ -1,3 +1,4 @@
+Import-GPO
 param (
     [string]$GroupName
 )
@@ -5,6 +6,12 @@ param (
 #WallPaper
 try
 {
+    #check if gpo already exist
+    $GPO = Get-GPO -Name "WallpaperGPO"
+    if ($null -ne $GPO)
+    {
+        throw "Le GPO existe deja ou le gpo de l'image a echoue"
+    }
     $GPOName = "WallpaperGPO"
     $GPOPath = "CN=Policies,CN=System,DC=novatech,DC=local"
 
@@ -13,12 +20,18 @@ try
 }
 catch
 {
-    Write-Host "Error: $_"
+    Write-Host "Erreur: $_"
 }
 
 #UninstallApp
 try 
 {
+    #check if gpo already exist
+    $GPO = Get-GPO -Name "UninstallAppGPO"
+    if ($null -ne $GPO)
+    {
+        throw "Le GPO existe deja ou le gpo de supression de l'application a echoue"
+    }
     $GPOName = "UninstallAppGPO"
     $GPOPath = "CN=Policies,CN=System,DC=novatech,DC=local"
 
@@ -27,12 +40,18 @@ try
 }
 catch
 {
-    Write-Host "Error: $_"
+    Write-Host "Erreur: $_"
 }
 
 #InstallApp
 try
 {
+    #check if gpo already exist
+    $GPO = Get-GPO -Name "InstallAppGPO"
+    if ($null -ne $GPO)
+    {
+        throw "Le GPO existe deja"
+    }
     $GPOName = "InstallAppGPO"
     $GPOPath = "CN=Policies,CN=System,DC=novatech,DC=local"
     $InstallerPath = ".\npp.8.5.8.Installer.x64.exe"
@@ -42,7 +61,7 @@ try
 }
 catch
 {
-    Write-Host "Error: $_"
+    Write-Host "Erreur: $_"
 }
 
 #BlockUSB
@@ -52,6 +71,13 @@ try
     {
         throw
     }
+
+    #check if gpo already exist
+    $GPO = Get-GPO -Name "BlockUSBGPO"
+    if ($null -ne $GPO)
+    {
+        throw "Le GPO existe deja ou le gpo de bloquage usb a echoue"
+    }
     $GPOName = "BlockUSBGPO"
     $GPOPath = "CN=Policies,CN=System,DC=novatech,DC=local"
 
@@ -60,7 +86,7 @@ try
 }
 catch
 {
-    Write-Host "Error: $_"
+    Write-Host "Erreur: $_"
 }
 
 #RestrictAccess
@@ -69,6 +95,13 @@ try
     if ($GroupName -eq "Techs")
     {
         throw
+    }
+
+    #check if gpo already exist
+    $GPO = Get-GPO -Name "RestrictAccessGPO"
+    if ($null -ne $GPO)
+    {
+        throw "Le GPO existe deja ou le gpo de restriction d'acces a echoue"
     }
     $GPOName = "RestrictAccessGPO"
     $GPOPath = "CN=Policies,CN=System,DC=novatech,DC=local"

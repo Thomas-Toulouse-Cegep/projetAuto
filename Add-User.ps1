@@ -39,14 +39,14 @@
             C:\Users\Administrateur\Documents\projetAuto\Add-Groups.ps1 -GroupName $groupe
         }
         catch {
-            Write-Host "Le groupe $groupe existe deja"
+            Write-Host "Path invalide ou impossible d'acceder au fichier Add-Groups.ps1"
         }
         #ajouter l'utilisateur au groupe
         try {
             Add-ADGroupMember -Identity $groupe -Members $samAccountName
         }
         catch {
-            Write-Host "Le user $samAccountName est deja dans le groupe $groupe"
+            Write-Host "L utilisateur $samAccountName est deja dans le groupe $groupe"
         }
 
         # Créez un dossier partagé pour le groupe s'il n'existe pas deja
@@ -57,7 +57,7 @@
                 if (-not (Test-Path -Path "$dossierPartage\$groupe" -PathType Container))
                 {
                     New-Item -Path $dossierPartage -ItemType Directory -Name $groupe
-                    New-SmbShare -Name $groupe -Path "C:\Users\Administrateur\Documents\test\$groupe" -FullAccess "novatech\$groupe"
+                    New-SmbShare -Name $groupe -Path "$dossierPartage\$groupe" -FullAccess "novatech\$groupe"
                 }
                 else {
                     Write-Host "Le groupe partager $groupe existe deja"
@@ -66,5 +66,13 @@
         } 
         catch {
             Write-Host "Echec de la creation du dossier partage $groupe"
+        }
+        
+        #gpo
+        try {
+            C:\Users\Administrateur\Documents\projetAuto\GPO.ps1 -GroupName $groupe
+        }
+        catch {
+            Write-Host "Echec de l'utilisation du GPO."
         }
     }
